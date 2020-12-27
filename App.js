@@ -13,8 +13,9 @@ const App = () => {
   return (
     <PaperProvider>
       <NavigationContainer>
-        {splash ? <SplashScreen /> : <MainNavigation />}
+        {/* {splash ? <SplashScreen /> : <MainNavigation />} */}
         {/* <SplashScreen /> */}
+        <MainNavigation />
       </NavigationContainer>
     </PaperProvider>
   );

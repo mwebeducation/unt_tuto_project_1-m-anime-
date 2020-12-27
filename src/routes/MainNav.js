@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, {useState, useEffect} from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import TabNavigation from './TabNav';
@@ -10,18 +11,48 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const Stack = createStackNavigator();
 
 export default function MainNavigation() {
-  const [isLunch, setIsluch] = useState(null);
+  const [isLunch, setIsluch] = useState(true);
+
+  // const saveData = async () => {
+  //   try {
+  //     await AsyncStorage.setItem('Lunched', 'success');
+  //     console.log('Data SuccessfulySaved');
+  //   } catch {
+  //     console.log('Failed to save the Data To Storage');
+  //   }
+  // };
+
+  // const readData = async () => {
+  //   try {
+  //     await AsyncStorage.getItem('Lunched').then((value) => {
+  //       if (value == null) {
+  //         saveData();
+  //         setIsluch(true);
+  //       } else {
+  //         setIsluch(false);
+  //       }
+  //     });
+  //   } catch {
+  //     console.log('Fail to Read Data');
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   readData();
+  // }, []);
 
   useEffect(() => {
-    AsyncStorage.getItem('luched').then((val) => {
-      if (val == null) {
-        AsyncStorage.setItem('luched', 'access');
+    (async () => {
+      const val = await AsyncStorage.getItem('luched');
+      if (val === null) {
+        await AsyncStorage.setItem('luched', 'access');
         setIsluch(true);
       } else {
         setIsluch(false);
       }
-    });
+    })();
   }, []);
+
   console.log(isLunch);
   return (
     <Stack.Navigator
